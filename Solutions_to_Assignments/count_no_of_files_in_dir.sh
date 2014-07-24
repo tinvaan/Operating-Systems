@@ -5,5 +5,5 @@
 read -p "Enter the directory you want to look into(Make sure you enter the complete path) : " path_to_dir
 cd $path_to_dir
 count=$(ls -l | wc -l)
-echo "The no. of files in ${pwd} is : $count"
+echo "The no. of files in ${path_to_dir} is : $count"
 echo

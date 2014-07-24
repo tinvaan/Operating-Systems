@@ -5,9 +5,13 @@
 
 #! /bin/bash
 
-read -p "Enter the directory(enter the full path) : " dirname
-cd $dirname
+echo "Looking for files in the PWD only ..."
 read -p "Enter the filename : " filename
-locate $filename
-if($?!=0)
-  echo "Could found $filename"
+find $filename
+return_value=$?
+if test "$return_value"=="1"
+then
+  echo "Could not find $filename"
+else 
+  echo "Found $filename"
+fi

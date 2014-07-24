@@ -3,15 +3,17 @@
 echo "You are currently in : "; pwd
 read -p "Enter name of new directory : " dirname
 echo "Name of the new directory to be created $dirname "
-echo "Creating new directory ... "
+echo "Creating new directory in ~/Desktop "
 cd ~/Desktop
 mkdir "$dirname"
 echo "DONE ! Successfully created new directory"
-echo
+read -p "Do you want to delete the directory ? " answer
 
-#Check if the directory was created.
-#if ($? == 0)
-#  echo "Successfully created new directory"
-#else
-#  echo "Failed to create new directory"
+if test "$answer" == "yes"
+then
+  echo "Deleting $dirname ... "
+  rm -r $dirname
+fi
+echo "Successfully deleted $dirname"
+echo
 
