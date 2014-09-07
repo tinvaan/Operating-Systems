@@ -1,11 +1,11 @@
-/* Implementing the cp command */
+u/* Implementing the cp command */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
 
 /* RW for owner, group, others */
-#define PERMS 0666 
+#define PERMS 0666
 
 /* Declare the buffer */
 char buffer[2048];
@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
 	printf("\nPlease enter source and destination ! \n");
   	exit(1);
     }
-    /* Prototype for open() system call 
+    /* Prototype for open() system call
      * int open(file_name, option_flags[,mode])
      * char *file_name
      * int option_flags, mode
@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
 	 */
 	/* Create new file(destination) */
 	fd_new = creat(argv[2], PERMS);
-	
+
 	/* Check for errors in opening new file */
 	if(fd_new == -1) {
 		printf("\nCould not create new file %s\n",argv[2]);
@@ -57,8 +57,8 @@ int main(int argc, char *argv[]) {
 
 void copy(int old, int new) {
 	int count;
-	
-	/* Prototype for the read command 
+
+	/* Prototype for the read command
 	 * int read(file_descriptor, buffer_pointer, transfer_size)
 	 * int file_descriptor
 	 * char *buffer_pointer
@@ -67,13 +67,13 @@ void copy(int old, int new) {
 
 	/* Read till return value > -1 */
 	while((count = read(old, buffer, sizeof(buffer))) > 0)
-		/* Prototype for the write command 
+		/* Prototype for the write command
 		 * int write(file_descriptor, buffer_pointer, transfer_size)
 		 * int file_descriptor
 		 * char *buffer_pointer
 		 * unsigned transfer_size
 		 */
-		
+
 		/* Write to the destination file */
 		write(new, buffer, count);
 }
