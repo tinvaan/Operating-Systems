@@ -21,7 +21,7 @@ int main(int argc, const char *argv[])
     }
 
     printf("\nFile Name : %s\n", argv[1]);
-    //printf("\nFile Size : %d\n", stat_buf.st_size<`2`>);       (ERROR on COMPILATION)
+    printf("\nFile Size : %d\n", stat_buf.st_size);
     printf("\nNumber of links : %d\n", stat_buf.st_nlink);
     //printf("\nDevice containing : %s\n",stat_buf.st_dev); (GIVES A SEG_FAULT)
     printf("\nTime of last access : %d\n",stat_buf.st_atime);
