@@ -12,19 +12,19 @@ void *TaskCode(void *arguments);
 int main(int argc, char const *argv[])
 {
 	pthread_t threads[NUM_THREADS];
-	int thread_args[NUM_THREADS], rc, i;
+	int thread_args[NUM_THREADS], return_create, i;
 
 	/* Create all threads */
 	for(i = 0; i<NUM_THREADS; i++) {
 		thread_args[i] = i;
 		printf("\nIn main() : Creating thread %d\n", i);
-		rc = pthread_create(&threads[i], NULL, TaskCode, (void *) &thread_args[i]);
-		assert(0 == rc);
+		return_create = pthread_create(&threads[i], NULL, TaskCode, (void *) &thread_args[i]);
+		assert(0 == return_create);
 	}
 
 	/* Wait for all threads to complete */
 	for(i = 0; i<NUM_THREADS; i++) {
-		rc = pthread_join(threads[i], NULL);
+		return_create = pthread_join(threads[i], NULL);
 	}
 
 	exit(EXIT_SUCCESS);
