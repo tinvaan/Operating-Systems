@@ -1,3 +1,5 @@
+/* Program to generate the fibonacci series using the concept of Pthreads */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -5,45 +7,41 @@
 #include <sys/types.h>
 #include <sys/ipc.h>
 
-/* Function to generate the fibonacci series in thread */
-void *fibonacci_generate(void *size) {
-	int i, prev = 0, curr = 1, next;
+// FIXME : Write a method that takes in the number of terms
+// as a command line argument and prints the sequence till
+// the same.
 
-	printf("\n Number of terms in function() : %d\n", *((int *)size));
+void *fibonacci_generate(void *arg) {
+    int i, prev = 0, curr = 1, next;
+    int localStorage = *((int *) arg);
 
-	printf("%d", prev);
-	printf("%d", curr);
+    printf("\nPrinting the Fibonacci sequence till %d terms \n", localStorage);
 
-	for(i = 0; i< *((int *)size); i++ ) {
-		next = prev + curr;
-		printf("%d", next);
-		//Update the current and prev
-		prev = curr;
-		curr = next;
-	}
-} 
+    printf("\n%d %d", prev, curr);
 
-/* Function to conver the command line argument(a string) to integer */
-int string_to_int(string arg) {
-	//res * 10 + ((int) c[0] - '0')
-	int res  = 0, ret_val;
-	ret_val = (res * 10) + ((int) c[0] - '0');
+    for(i = 0; i < (localStorage - 2); i++) {
+        next = prev + curr;
+        printf(" %d", next);
+        //Update the prev and curr indices
+        prev = curr;
+        curr = next;
+    }
 
-	return ret_val;
+    printf("\n\n");
 }
 
-
-/* Main method */
+/* Begining of the driver class */
 int main(int argc, char const *argv[])
 {
-	string arg = argv[1];
+	int i, no_of_terms;
+
 	pthread_t fibonacci_generate_thread;
-	int no_of_terms = string_to_int(arg);
+	printf("\nEnter the number of terms in the sequence : ");
+    scanf("%d", &no_of_terms);
 
-	printf("\n Number of terms in main() : %d\n", no_of_terms);
-
-	pthread_create(fibonacci_generate_thread, NULL, fibonacci_generate, (void *) no_of_terms);
+	pthread_create(fibonacci_generate_thread, NULL, fibonacci_generate, &no_of_terms);
 	pthread_join(fibonacci_generate_thread, NULL);
+    pthread_detach(fibonacci_generate_thread);
 
-	return 0;
+	return EXIT_SUCCESS;
 }
