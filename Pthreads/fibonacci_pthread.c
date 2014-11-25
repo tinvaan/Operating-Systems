@@ -7,10 +7,6 @@
 #include <sys/types.h>
 #include <sys/ipc.h>
 
-// FIXME : Write a method that takes in the number of terms
-// as a command line argument and prints the sequence till
-// the same.
-
 void *fibonacci_generate(void *arg) {
     int i, prev = 0, curr = 1, next;
     int localStorage = *((int *) arg);
@@ -33,11 +29,9 @@ void *fibonacci_generate(void *arg) {
 /* Begining of the driver class */
 int main(int argc, char const *argv[])
 {
-	int i, no_of_terms;
+	int i, no_of_terms = atoi(argv[1]);
 
 	pthread_t fibonacci_generate_thread;
-	printf("\nEnter the number of terms in the sequence : ");
-    scanf("%d", &no_of_terms);
 
 	pthread_create(fibonacci_generate_thread, NULL, fibonacci_generate, &no_of_terms);
 	pthread_join(fibonacci_generate_thread, NULL);
